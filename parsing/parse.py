@@ -1,25 +1,24 @@
+import os
 import itertools
 import re
-from Layout import Layout
-from Output import Output
-import string
+from parsing.Layout import Layout
+from parsing.Output import Output
 
 # function wich parses a layout file into a Layout object
-def parse (file):
-    sections = split_to_sections(file)
+def parse (file_content):
+    sections = split_to_sections(file_content)
 
     return convert_sections_to_layout(sections)
 
 # function to split a layout file into the declared sections
-def split_to_sections (file):
+def split_to_sections (file_content):
     sections = []
 
-    with open(file) as f:
-        for key, group in itertools.groupby(f, get_key):
-            if key is not False:
-                sections += [(key,'')]
-            else:
-                sections[:1][0][1] = ''.join(group)
+    for key, group in itertools.groupby(file_content, get_key):
+        if key is not False:
+            sections += [(key,'')]
+        else:
+            sections[len(sections)-1] = (sections[len(sections)-1][0], ''.join(group))
     
     return sections
 
@@ -30,7 +29,7 @@ def convert_sections_to_layout (sections):
     outputs = []
 
     for section in sections:
-        if section[0] is 'Layout':
+        if section[0] == 'Layout':
             temp_layout_settings = parse_section_settings(section[1])
             layout_name = temp_layout_settings['name']
 
@@ -45,8 +44,8 @@ def convert_sections_to_layout (sections):
 def parse_section_settings(section):
     settings = {}
 
-    for line in string.split(section, '\n'):
-        setting = string.split(line, ':')
+    for line in section.split(os.linesep):
+        setting = line.split(':')
 
         if len(setting) < 2 :
             # if it is a option without attributes, the attributes string will be set to ''
@@ -59,7 +58,7 @@ def parse_section_settings(section):
 # function which extracts the name of the current section from the layout file as key for the groupby function. Returns none if the line
 # isn't a section declaration
 def get_key (line):
-    m = re.match('^\[(\w+\]$', line)
+    m = re.match('^\[(\w+)\]$', line)
     
     if m is not None:
         return m.group(1)
