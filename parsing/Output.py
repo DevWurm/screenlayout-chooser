@@ -4,10 +4,10 @@ class Output:
         self.name = name
         self.settings = settings
 
-    def to_XRandR_String (self):
-        result = "--output " + self.name + " "
+    def to_XRandR_Options (self):
+        result = ["--output", self.name]
 
         for key, value in self.settings.items():
-            result += "--" + key + " " + value + " "
+            result += ["--" + key, value]
 
-        return result
+        return list(filter(bool, result))

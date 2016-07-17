@@ -5,12 +5,12 @@ class Layout:
         self.settings = settings
         self.outputs = outputs
 
-    def to_XRandR_String (self):
-        result = ""
+    def to_XRandR_Options (self):
+        result = [] 
         
         for key, value in self.settings.items():
-            result += "--" + key + " " + value + " "
+            result += ["--" + key, value]
         for output in self.outputs:
-            result += output.toXRandRString()
+            result += output.to_XRandR_Options()
 
-        return result
+        return list(filter(bool, result))
