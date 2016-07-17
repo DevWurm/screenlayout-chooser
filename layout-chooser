@@ -1,10 +1,16 @@
 #!/bin/python
 
-import os
 import sys
-import subprocess
 from parsing.parse import parse
-from functools import reduce
+from application.apply import apply
+from requesting.request import request, get_request_options
+
+layouts_dir = sys.argv[1]
+rofi_bg_color = sys.argv[2]
+rofi_text_color = sys.argv[3]
+rofi_inactive_bg_color = sys.argv[4]
+rofi_inactive_text_color = sys.argv[5]
+rofi_font = sys.argv[6]
 
 layouts = []
 
@@ -12,12 +18,13 @@ for filename in os.listdir(sys.argv[1]):
     with  open(os.path.join(sys.argv[1], filename), 'r') as f:
         layouts += [parse(f)]
 
-rofi_input_string = reduce(lambda res, nxt: res + '\n' + nxt, map(lambda lay: lay.name, layouts))
+request_options = get_request_options(bg_color, text_color, inactive_bg_color, inactive_text_color, font)
 
-rofi = subprocess.Popen(['rofi', '-dmenu'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+chosen_layout_string = request(layouts, request_options)
 
-chosen_layout_string = (rofi.communicate(input=rofi_input_string.encode('UTF-8'))[0]).decode('UTF-8').strip('\n')
+chosen_layouts = list(filter(lambda lay: lay.name == chosen_layout_string, layouts))
 
-chosen_layout = list(filter(lambda lay: lay.name == chosen_layout_string, layouts))[0]
+if len(chosen_layouts) > 0:
+    apply(chosen_layous[0])
 
-subprocess.call(['xrandr'] + chosen_layout.to_XRandR_Options())
+
