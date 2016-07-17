@@ -1,16 +1,17 @@
 #!/bin/python
 
+import os
 import sys
 from parsing.parse import parse
 from application.apply import apply
 from requesting.request import request, get_request_options
 
 layouts_dir = sys.argv[1]
-rofi_bg_color = sys.argv[2]
-rofi_text_color = sys.argv[3]
-rofi_inactive_bg_color = sys.argv[4]
-rofi_inactive_text_color = sys.argv[5]
-rofi_font = sys.argv[6]
+bg_color = sys.argv[2]
+text_color = sys.argv[3]
+inactive_bg_color = sys.argv[4]
+inactive_text_color = sys.argv[5]
+font = sys.argv[6]
 
 layouts = []
 
@@ -25,6 +26,6 @@ chosen_layout_string = request(layouts, request_options)
 chosen_layouts = list(filter(lambda lay: lay.name == chosen_layout_string, layouts))
 
 if len(chosen_layouts) > 0:
-    apply(chosen_layous[0])
+    apply(chosen_layouts[0])
 
 

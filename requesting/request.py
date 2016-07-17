@@ -22,7 +22,7 @@ def get_request_options(bg_color, text_color, inactive_bg_color, inactive_text_c
                     '-bw', '0',\
                     '-color-enabled',\
                     '-color-window', inactive_bg_color + ', ' + inactive_bg_color,\
-                    '-color-normal', inactive_bg_color + ', ' + _inactive_text_color + ', ' + inactive_bg_color + ', ' + bg_color + ', ' + text_color,\
+                    '-color-normal', inactive_bg_color + ', ' + inactive_text_color + ', ' + inactive_bg_color + ', ' + bg_color + ', ' + text_color,\
                     '-color-urgent', inactive_bg_color + ', ' + inactive_text_color + ', ' + inactive_bg_color + ', ' + bg_color + ', ' + text_color,\
                     '-color-active', inactive_bg_color + ', ' + inactive_text_color + ', ' + inactive_bg_color + ', ' + bg_color + ', ' + text_color,\
                     '-font', font]
