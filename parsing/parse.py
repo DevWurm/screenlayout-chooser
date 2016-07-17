@@ -16,10 +16,14 @@ def parse (file):
 def split_to_sections (file_content):
     sections = []
 
+    # split the file content into sections
     for key, group in itertools.groupby(file_content, get_key):
         if key is not False:
+            # if the current 'group' is a section declaration, set a new section
             sections += [(key,'')]
         else:
+            # if the current 'group' is a series of options bind them to the last section
+            # (remove trailing newlines to avoid a empty option caused by a empty line)
             sections[len(sections)-1] = (sections[len(sections)-1][0], ''.join(group).strip('\n'))
     
     return sections
@@ -32,12 +36,17 @@ def convert_sections_to_layout (sections):
 
     for section in sections:
         if section[0] == 'Layout':
+            # handle the options set in the general Layout section
+
+            # extract the name of the layout
             temp_layout_settings = parse_section_settings(section[1])
             layout_name = temp_layout_settings['name']
 
+            # set all other keys as settings for the layout
             del temp_layout_settings['name']
             layout_settings = temp_layout_settings
         else:
+            # parse all other sections as Outputs
             outputs += [Output(section[0], parse_section_settings(section[1]))]
 
     return Layout(layout_name, layout_settings, outputs)
@@ -46,6 +55,7 @@ def convert_sections_to_layout (sections):
 def parse_section_settings(section):
     settings = {}
 
+    # parse every line as setting with a key value pait seperates by a ':'
     for line in section.split(os.linesep):
         setting = line.split(':')
 
