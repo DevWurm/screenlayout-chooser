@@ -5,7 +5,9 @@ from parsing.Layout import Layout
 from parsing.Output import Output
 
 # function wich parses a layout file into a Layout object
-def parse (file_content):
+def parse (file):
+    file_content = strip_file(file)
+
     sections = split_to_sections(file_content)
 
     return convert_sections_to_layout(sections)
@@ -18,7 +20,7 @@ def split_to_sections (file_content):
         if key is not False:
             sections += [(key,'')]
         else:
-            sections[len(sections)-1] = (sections[len(sections)-1][0], ''.join(group))
+            sections[len(sections)-1] = (sections[len(sections)-1][0], ''.join(group).strip('\n'))
     
     return sections
 
@@ -64,3 +66,15 @@ def get_key (line):
         return m.group(1)
     else:
         return False
+
+# function for stripping empty lines and comments out of a file, so it can be parsed easily
+# it converts the opened file into an array, so it stays an iterable
+def strip_file (file):
+    result = []
+
+    for line in file:
+        if len(line.strip()) != 0 and not line.strip().startswith('#'):
+            result += [line]
+
+    return result
+    
