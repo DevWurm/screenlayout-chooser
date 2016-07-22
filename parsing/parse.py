@@ -57,7 +57,7 @@ def parse_section_settings(section):
 
     # parse every line as setting with a key value pait seperates by a ':'
     for line in section.split(os.linesep):
-        setting = line.split(':')
+        setting = line.split('=')
 
         if len(setting) < 2 :
             # if it is a option without attributes, the attributes string will be set to ''

@@ -53,25 +53,25 @@ It's `name` option is used as display name for the chooser and all other options
 So the file:
 ```
 [Layout]
-name:TestLayout
+name=TestLayout
 
 [eDP1]
 primary
-mode: 2560x1440
-pos: 2048x180
-rotate: normal
+mode= 2560x1440
+pos= 2048x180
+rotate= normal
 
 [HDMI1]
-mode: 1920x1080
-pos: 4608x0
-rotate:normal
-scale: 1.5x1.5
+mode= 1920x1080
+pos= 4608x0
+rotate=normal
+scale= 1.5x1.5
 
 [DP2]
-mode: 1024x768
-pos: 0x84
-rotate: normal
-scale: 2x2
+mode= 1024x768
+pos= 0x84
+rotate= normal
+scale= 2x2
 ```
 will result in this XRandR call:
 ```
