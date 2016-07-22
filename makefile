@@ -4,7 +4,7 @@ remove: removeLocal removeGlobal
 
 installLocal:
 	mkdir -p $(HOME)/.scripts/screenlayout-chooser
-	cp -r ./ $(HOME)/.scripts/screenlayout-chooser
+	cp -r ./* $(HOME)/.scripts/screenlayout-chooser
 	chown $(USER):users -R $(HOME)/.scripts/screenlayout-chooser
 
 removeLocal:
@@ -12,7 +12,7 @@ removeLocal:
 
 installGlobal:
 	mkdir -p /opt/scripts/screenlayout-chooser
-	cp -r ./ /opt/scripts/screenlayout-chooser
+	cp -r ./* /opt/scripts/screenlayout-chooser
 	chown root:root -R /opt/scripts/screenlayout-chooser
 
 removeGlobal:
