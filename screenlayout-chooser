@@ -1,0 +1,35 @@
+#!/bin/python
+
+import os
+import sys
+from parsing.parse import parse
+from application.apply import apply
+from requesting.request import request, get_request_options
+
+# parse all files in the provided directory as layout files, let the user select a layout via rofi interface and apply the selected layout
+
+# set the layouts directory and options for requesting interface
+layouts_dir = sys.argv[1]
+bg_color = sys.argv[2]
+text_color = sys.argv[3]
+inactive_bg_color = sys.argv[4]
+inactive_text_color = sys.argv[5]
+font = sys.argv[6]
+
+layouts = []
+
+# parse layouts
+for filename in os.listdir(sys.argv[1]):
+    with  open(os.path.join(sys.argv[1], filename), 'r') as f:
+        layouts += [parse(f)]
+
+# perform user request
+request_options = get_request_options(bg_color, text_color, inactive_bg_color, inactive_text_color, font)
+chosen_layout_string = request(layouts, request_options)
+
+# identify and apply selected layout
+chosen_layouts = list(filter(lambda lay: lay.name == chosen_layout_string, layouts))
+if len(chosen_layouts) > 0:
+    apply(chosen_layouts[0])
+
+
