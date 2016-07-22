@@ -21,7 +21,8 @@ def get_request_options(bg_color, text_color, inactive_bg_color, inactive_text_c
     # calculate the padding of the rofi menu by the current screen height and an arbitrary factor
     padding = str(get_screen_height() / 3)
 
-    request_options= ['-lines', '3',\
+    request_options= ['-p', 'layout',\
+                    '-lines', '3',\
                     '-eh', '2',\
                     '-width', '100',\
                     '-padding', padding,\
