@@ -1,9 +1,11 @@
 # screenlayout-chooser
-Conveniently define, choose and apply screenlayouts.\
-In highly-configurable linux distros like Arch Linux there is no default for configuring and applying screenlayouts easily. XRandR is a 
+Conveniently define, choose and apply screenlayouts.
+
+In power user linux distros like Arch Linux there is no default for configuring and applying screenlayouts easily. XRandR is a 
 cli tool for achieving this but it requires a lot of keypresses to initiate the layout change and XRandR shell scripts are not very nicely
 configurable, due to the length of the calls and the thereby resulting amount of scrolling through the command. There are also graphical
-tools like ARandR, which make switching layouts easier, but still require a lot of interactions.\
+tools like ARandR, which make switching layouts easier, but still require a lot of interactions.
+
 screenlayout-chooser is a Python3 script which accepts a folder, which contains layout definitions in the easy to write and understandable
 [INI file format](https://en.wikipedia.org/wiki/INI_file). It then shows a small graphical interface via rofi, which lets you choose your
 layout with only a few keypresses. It then applies the chosen layout via XRandR.
