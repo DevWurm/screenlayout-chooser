@@ -70,7 +70,7 @@ def parse_section_settings(section):
 # function which extracts the name of the current section from the layout file as key for the groupby function. Returns none if the line
 # isn't a section declaration
 def get_key (line):
-    m = re.match('^\[(\w+)\]$', line)
+    m = re.match('^\[([\w-]+)\]$', line)
     
     if m is not None:
         return m.group(1)
